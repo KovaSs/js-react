@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { comments } from './mock';
+import { comments } from '../mock';
 
 export default function Comment ({comment}) {
 
