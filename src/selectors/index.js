@@ -16,11 +16,9 @@ export const filtratedArticleSelector = createSelector( articlesGetter, filtersG
 
 export const commentSelectorFactory = () => createSelector( commentsGetter, idGetter, (comments, id) => {
   console.log('---', 'getting comment')
-  return comments.find(comment => comment.id === id)
+  // return comments.find(comment => comment.id === id)
+  return comments[id]
 })
-
-
-
 
 /* Ранее использованный код до селекторов
   export function filtrateArticles({filters, articles}) {
