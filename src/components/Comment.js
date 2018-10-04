@@ -1,20 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { comments } from '../mock';
 
-export default function Comment ({comment}) {
-
-  
-  let getComment = comments.find(item  => item.id == comment )
+function Comment ({comment}) {
   
   return (
     <div>
-      <b>{getComment.user}</b>
-      <p>{getComment.text}</p>
+      <b>{comment.user}</b>
+      <p>{comment.text}</p>
     </div>
   )
 }
 
 Comment.propTypes = {
-  comment: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  // from connect
+  comment: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired
+  }).isRequired
 }
+
+export default connect((state, ownProps) => {
+  return {
+    comment: state.comments.find(comment => comment.id === ownProps.id)
+  }
+})(Comment)
