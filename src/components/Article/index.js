@@ -1,6 +1,8 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group'
+import { connect } from 'react-redux'
+import { deleteArticle } from '../../AC'
 import CommentList from '../CommentList';
 import './style.css'
 
@@ -21,12 +23,15 @@ class Article extends Component {
 
   render() {
     const {article, isOpen, toggleOpen} = this.props
-    console.log('---', 'apdate article')
+    // console.log('---', 'apdate article')
     return (
       <div>
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>
           {isOpen ? 'close' : 'open'}
+        </button>
+        <button onClick={this.hanleDelete}>
+          Delete article
         </button>
         <CSSTransitionGroup
           transitionName = 'article'
@@ -42,6 +47,12 @@ class Article extends Component {
     )
   }
 
+  hanleDelete = () => {
+    console.log('---', 'delete article')
+    const { deleteArticle, article } = this.props
+    deleteArticle(article.id)
+  }
+
   getBody() {
     const {article, isOpen} = this.props
     if (!isOpen) return null
@@ -54,4 +65,4 @@ class Article extends Component {
   }
 }
 
-export default Article
+export default connect(null, {deleteArticle})(Article)

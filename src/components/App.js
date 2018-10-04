@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import propTypes from 'prop-types'
-import Select from 'react-select';
 import ArticleList from './ArticleList'
 import UserForm from './UserForm';
 import Filters from './Filters';
+import Counter from './Counter';
 import 'react-select/dist/react-select.css';
 
 class App extends Component {
@@ -16,12 +16,12 @@ class App extends Component {
   }
 
   render() {
-    const {articles} = this.props
     return (
       <div>
+        <Counter/>
         <UserForm/>
-        <Filters articles = {articles}/>
-        <ArticleList articles = {this.props.articles}/>
+        <Filters articles = {[]}/>
+        <ArticleList/>
       </div>
     )
   }
