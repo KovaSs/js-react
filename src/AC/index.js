@@ -4,7 +4,7 @@ import {
   CHANGE_DATE_RANGE,
   CHANGE_SELECTION,
   ADD_COMMENT, 
-  LOAD_ARTICLES
+  LOAD_ALL_ARTICLES
 } from '../constans'
 
 export function increment() {
@@ -42,9 +42,9 @@ export function addComment(comment, articleId) {
   }
 }
 
-export function loadArticles(comment, articleId) {
+export function loadArticles() {
   return {
-      type: LOAD_ARTICLES,
+      type: LOAD_ALL_ARTICLES,
       callAPI: '/api/article/'
   }
 }

@@ -5,6 +5,7 @@ import Article from './Article'
 import accordion from '../decorators/accordion'
 import {filtratedArticleSelector} from '../selectors'
 import {loadArticles} from '../AC'
+import Loader from './Loader'
 
 class ArticleList extends Component{
   static propTypes = {
@@ -16,11 +17,13 @@ class ArticleList extends Component{
   }
 
   componentDidMount() {
-    this.props.loadArticles()
+    const {loaded, loading, loadArticles} = this.props
+    if (!loaded || !loading) loadArticles()
   }
 
   render() {
-    const {articles, openItemId, toggleOpenItem} = this.props
+    const {articles, openItemId, toggleOpenItem, loading} = this.props
+    if (loading) return <Loader />
     const articleElements = articles.map(article => <li key={article.id}>
         <Article 
           article = {article}
@@ -40,7 +43,9 @@ class ArticleList extends Component{
 
 export default connect((state) => {
   return {
-    articles: filtratedArticleSelector(state)
+    articles: filtratedArticleSelector(state),
+    loading: state.articles.loading,
+    loaded: state.articles.loaded
   }
 }, {loadArticles})(accordion(ArticleList))
 

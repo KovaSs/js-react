@@ -8,13 +8,13 @@ import './style.css'
 
 class Article extends Component {
   static propTypes = {
-      article: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      text: PropTypes.string
-    }).isRequired,
-    isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func
+    // article: PropTypes.shape({
+    // id: PropTypes.string.isRequired,
+    // title: PropTypes.string.isRequired,
+    // text: PropTypes.string
+    // }).isRequired,
+    //  isOpen: PropTypes.bool,
+    // toggleOpen: PropTypes.func
   }
 
   // shouldComponentUpdate(nextProps, nexState){
@@ -53,9 +53,9 @@ class Article extends Component {
   }
 
   hanleDelete = () => {
-    console.log('---', 'delete article')
     const { deleteArticle, article } = this.props
     deleteArticle(article.id)
+    console.log('---', 'delete article')
   }
 
   getBody() {
