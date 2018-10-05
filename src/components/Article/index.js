@@ -21,6 +21,11 @@ class Article extends Component {
   //   return nextProps.isOpen !== this.props.isOpen
   // }
 
+  state = {
+    updateIndex: 0,
+    areCommentsOpen: false
+}
+
   render() {
     const {article, isOpen, toggleOpen} = this.props
     // console.log('---', 'apdate article')
@@ -59,9 +64,14 @@ class Article extends Component {
     return (
       <section>
         {article.text}
-        <CommentList comments={article.comments}/>
+        <CommentList article={article} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
       </section>
     )
+  }
+
+  setCommentsRef = ref => {
+    this.comments = ref
+  // console.log('---', ref)
   }
 }
 

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { mapToArray } from '../helpers'
 
 export const filtersGetter = state => state.filters
 export const articlesGetter = state => state.articles
@@ -7,7 +8,7 @@ export const idGetter = (state, props) => props.id
 
 export const filtratedArticleSelector = createSelector( articlesGetter, filtersGetter, (articles, filters) => {
   const {selected, dateRange: {from,to}} = filters
-  return articles.filter(article => {
+  return mapToArray(articles).filter(article => {
     const published = Date.parse(article.date)
     return(!selected.length || selected.includes(article.id)) &&
     (!from || !to || (published > from && published < to))
@@ -16,8 +17,8 @@ export const filtratedArticleSelector = createSelector( articlesGetter, filtersG
 
 export const commentSelectorFactory = () => createSelector( commentsGetter, idGetter, (comments, id) => {
   console.log('---', 'getting comment')
-  // return comments.find(comment => comment.id === id)
   return comments[id]
+  // return comments.find(comment => comment.id === id)
 })
 
 /* Ранее использованный код до селекторов
