@@ -3,7 +3,7 @@ import { mapToArray } from '../helpers'
 
 export const filtersGetter = state => state.filters
 export const articlesGetter = state => state.articles.entities
-export const commentsGetter = state => state.comments
+export const commentsGetter = state => state.comments.entities
 export const idGetter = (state, props) => props.id
 
 export const filtratedArticleSelector = createSelector( articlesGetter, filtersGetter, (articles, filters) => {
@@ -17,7 +17,7 @@ export const filtratedArticleSelector = createSelector( articlesGetter, filtersG
 
 export const commentSelectorFactory = () => createSelector( commentsGetter, idGetter, (comments, id) => {
   console.log('---', 'getting comment')
-  return comments[id]
+  return comments.get(id)
   // return comments.find(comment => comment.id === id)
 })
 

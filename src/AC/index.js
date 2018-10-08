@@ -6,6 +6,7 @@ import {
   CHANGE_SELECTION,
   ADD_COMMENT, 
   LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE_COMMENTS,
   START, SUCCESS, FAIL
 } from '../constans'
 
@@ -21,6 +22,22 @@ export function deleteArticle(id) {
     payload: { id }
   }
 }
+
+export function loadArticles() {
+  return {
+      type: LOAD_ALL_ARTICLES,
+      callAPI: '/api/article/'
+  }
+}
+
+export function loadArticleComments(articleId) {
+  return {
+    type: LOAD_ARTICLE_COMMENTS,
+    payload: { articleId },
+    callAPI: `/api/comment?article=${articleId}`
+  }
+}
+
 export function loadArticle(id) {
  /* Более простой метод по получению статей 
     return {
@@ -32,7 +49,7 @@ export function loadArticle(id) {
       type: LOAD_ARTICLE + START,
       payload: {id}
     })
-    // Только для Dew режима, чтобы показать загрузку
+    // Только для dew-режима, чтобы показать загрузку
     setTimeout(() => {
       fetch(`/api/article/${id}`)
         .then(res => res.json())
@@ -67,12 +84,5 @@ export function addComment(comment, articleId) {
       type: ADD_COMMENT,
       payload: { comment, articleId },
       generatedId: true
-  }
-}
-
-export function loadArticles() {
-  return {
-      type: LOAD_ALL_ARTICLES,
-      callAPI: '/api/article/'
   }
 }

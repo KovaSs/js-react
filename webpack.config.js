@@ -27,7 +27,12 @@ module.exports = {
             {
                 test: /\.css/,
                 loaders: ['style-loader', 'css-loader'],
-            }
+            },
+            {
+                test: /\.(jpg|jpeg|gif|png)$/,
+                 include: path.resolve(__dirname, "src/img"),
+                 loader:'url-loader?limit=1024&name=images/[name].[ext]'
+             }
         ]
     }
 }
