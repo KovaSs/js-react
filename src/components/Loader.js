@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
+
 export function Loader() {
     return (
       <div>
-        <h2>Loading...</h2>
+        <img className='preloader' src='/src/img/loader-1.gif'/>
       </div>
     )
 

@@ -2,8 +2,9 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransitionGroup } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { deleteArticle } from '../../AC'
+import { deleteArticle, loadArticle } from '../../AC'
 import CommentList from '../CommentList';
+import Loader from '../Loader';
 import './style.css'
 
 class Article extends Component {
@@ -25,6 +26,10 @@ class Article extends Component {
     updateIndex: 0,
     areCommentsOpen: false
 }
+
+  componentWillReceiveProps({isOpen, loadArticle, article}) {
+    if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArticle(article.id)
+  }
 
   render() {
     const {article, isOpen, toggleOpen} = this.props
@@ -61,6 +66,7 @@ class Article extends Component {
   getBody() {
     const {article, isOpen} = this.props
     if (!isOpen) return null
+    if (article.loading) return <Loader/>
     return (
       <section>
         {article.text}
@@ -75,4 +81,4 @@ class Article extends Component {
   }
 }
 
-export default connect(null, {deleteArticle})(Article)
+export default connect(null, {deleteArticle, loadArticle})(Article)
