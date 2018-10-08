@@ -3,6 +3,7 @@ import propTypes from 'prop-types'
 import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 import Articles from './routes/Articles'
 import NotFoundPages from './routes/NotFoundPages'
+import CommentsPage from './routes/CommentsPage'
 import UserForm from './UserForm';
 import Filters from './Filters';
 import Counter from './Counter';
@@ -32,6 +33,7 @@ class App extends Component {
             <Route path='/counter' component={Counter}/>
             <Route path='/filters' component={Filters}/>
             <Route path='/articles' component={Articles}/>
+            <Route path='/comments/:page' component={CommentsPage}/>
             <Route path='*' component={NotFoundPages}/>
           </Switch>
         </div>

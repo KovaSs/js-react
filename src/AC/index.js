@@ -7,7 +7,8 @@ import {
   ADD_COMMENT, 
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE_COMMENTS,
-  START, SUCCESS, FAIL
+  START, SUCCESS, FAIL,
+  LOAD_COMMENTS_FOR_PAGES
 } from '../constans'
 
 export function increment() {
@@ -84,5 +85,17 @@ export function addComment(comment, articleId) {
       type: ADD_COMMENT,
       payload: { comment, articleId },
       generatedId: true
+  }
+}
+
+export function checkAndLoadCommentsForPage(page) {
+  return (dispatch, getState) => {
+    const {comments: {pagination}} = getState()
+    if (pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids'])) 
+    return dispatch({
+      type: LOAD_COMMENTS_FOR_PAGES,
+      payload: { page },
+      callAPI: `/api/comment?limit=5&offset=${(page -1) * 5}`
+    })
   }
 }
