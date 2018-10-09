@@ -28,3 +28,12 @@
 .preloader {
     width: 150px
 }
+
+.localized {
+    margin: 5px 2px;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}

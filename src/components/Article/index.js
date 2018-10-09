@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { deleteArticle, loadArticle } from '../../AC'
 import CommentList from '../CommentList';
 import Loader from '../Loader';
+import LocalizedText from '../LocalizedText';
 import './style.css'
 
 class Article extends Component {
@@ -37,11 +38,13 @@ class Article extends Component {
     return (
       <div>
         <h3>{article.title}</h3>
+        {/* 
         <button onClick={toggleOpen}>
           {isOpen ? 'close' : 'open'}
-        </button>
+        </button> 
+        */}
         <button onClick={this.hanleDelete}>
-          Delete article
+        <LocalizedText>Delete article</LocalizedText>
         </button>
         <CSSTransitionGroup
           transitionName = 'article'

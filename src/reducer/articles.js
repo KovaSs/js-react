@@ -30,7 +30,6 @@ const defaultState  = new ReducerState()
 
 export default (articleState = defaultState, action) => {
   const {type, payload, response, randomId} = action
-
   switch(type) {
     case DELETE_ARTICLE: 
       /* 
@@ -43,6 +42,7 @@ export default (articleState = defaultState, action) => {
     case ADD_COMMENT:
       /* Передаем по какому пути мы хотим поменять чтото ► [payload.articleId, 'comments'] ◄
       как это что-то мы хотим поменять ► comments => comments.concat(randomId) ◄ */
+      //console.log('comment =>', articleState)
       return articleState.updateIn( 
           ['entities', payload.articleId, 'comments'],
           comments => comments.concat(randomId)

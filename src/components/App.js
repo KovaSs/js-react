@@ -9,12 +9,10 @@ import UserForm from './UserForm';
 import history from '../history';
 import Filters from './Filters';
 import Counter from './Counter';
+import LangProvider from './LangProvider';
 import 'react-select/dist/react-select.css';
 
 class App extends Component {
-  static propTypes = {
-
-  }
 
   // Описали какого типа данные мы собираемся помещеать в контекст
   static childContextTypes = {
@@ -29,34 +27,38 @@ class App extends Component {
   }
 
   state = {
-    username: ''
+    username: '', 
+    language: 'ru'
   }
 
-
-/*   state = {
-    seclection: null
-  } */
+  changeLanguage = language => ev => this.setState({language})
 
   render() {
     return (
       <ConnectedRouter history = {history}>
-        <div>
+        <LangProvider language = {this.state.language}>
           <div>
-            <h2>Main menu</h2>
-            <div><NavLink activeStyle = {{color:'red'}} to='/counter'>Counter</NavLink></div>
-            <div><NavLink activeStyle = {{color:'red'}} to='/filters'>Filters</NavLink></div>
-            <div><NavLink activeStyle = {{color:'red'}} to='/articles'>Articles</NavLink></div>
+            <div>
+              <img onClick = {this.changeLanguage('en')} className='localized' src='/src/img/eng.png'/>
+              <img onClick = {this.changeLanguage('ru')} className='localized' src='/src/img/ru.png'/>
+            </div>
+            <div>
+              <h2>Main menu</h2>
+              <div><NavLink activeStyle = {{color:'red'}} to='/counter'>Counter</NavLink></div>
+              <div><NavLink activeStyle = {{color:'red'}} to='/filters'>Filters</NavLink></div>
+              <div><NavLink activeStyle = {{color:'red'}} to='/articles'>Articles</NavLink></div>
+            </div>
+            <UserForm value={this.state.username} onChange={this.handleUserChange}/>
+            <Switch>
+              <Route path='/counter' component={Counter}/>
+              <Route path='/filters' component={Filters}/>
+              <Route path='/articles' component={Articles}/>
+              <Route path='/comments/' component={CommentsPage}/>
+              {/* <Redirect from = '/comments/' to = '/comments/1'/> */}
+              <Route path='*' component={NotFoundPages}/>
+            </Switch>
           </div>
-          <UserForm value={this.state.username} onChange={this.handleUserChange}/>
-          <Switch>
-            <Route path='/counter' component={Counter}/>
-            <Route path='/filters' component={Filters}/>
-            <Route path='/articles' component={Articles}/>
-            <Route path='/comments/' component={CommentsPage}/>
-            {/* <Redirect from = '/comments/' to = '/comments/1'/> */}
-            <Route path='*' component={NotFoundPages}/>
-          </Switch>
-        </div>
+        </LangProvider>
       </ConnectedRouter>
     )
   }
