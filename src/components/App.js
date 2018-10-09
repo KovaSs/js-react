@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import propTypes from 'prop-types'
-import {BrowserRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
+import {Router, Route, NavLink, Switch, Redirect} from 'react-router-dom'
+import { ConnectedRouter} from 'react-router-redux'
 import Articles from './routes/Articles'
 import NotFoundPages from './routes/NotFoundPages'
 import CommentsPage from './routes/CommentsPage'
 import UserForm from './UserForm';
+import history from '../history';
 import Filters from './Filters';
 import Counter from './Counter';
 import 'react-select/dist/react-select.css';
@@ -20,7 +22,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <ConnectedRouter history = {history}>
         <div>
           <div>
             <h2>Main menu</h2>
@@ -33,11 +35,12 @@ class App extends Component {
             <Route path='/counter' component={Counter}/>
             <Route path='/filters' component={Filters}/>
             <Route path='/articles' component={Articles}/>
-            <Route path='/comments/:page' component={CommentsPage}/>
+            <Route path='/comments/' component={CommentsPage}/>
+            {/* <Redirect from = '/comments/' to = '/comments/1'/> */}
             <Route path='*' component={NotFoundPages}/>
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     )
   }
 }
