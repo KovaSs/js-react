@@ -40,14 +40,14 @@ export class CommentsPagination extends Component {
   getPaginator() {
     const {total} = this.props
     const items = []
-    for (let i = 1; i <= math.floor((total -1) / 5) + 1; i++) {
+    for (let i = 1; i <= Math.floor((total -1) / 5) + 1; i++) {
       items.push(<li key={i}><NavLink to={`/comments/${i}`} activeStyle={{color: 'red'}}>{i}</NavLink></li>)
     }
     return <ul>{items}</ul>
   }
 }
 
-export default connect((state, {page}) => {
+export default connect((state, { page }) => {
   const {total, pagination} = state.comments
   return {
     total,
