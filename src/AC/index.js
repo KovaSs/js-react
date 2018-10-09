@@ -10,6 +10,7 @@ import {
   START, SUCCESS, FAIL,
   LOAD_COMMENTS_FOR_PAGES
 } from '../constans'
+import { push, replace } from 'react-router-redux'
 
 export function increment() {
   return {
@@ -53,15 +54,24 @@ export function loadArticle(id) {
     // Только для dew-режима, чтобы показать загрузку
     setTimeout(() => {
       fetch(`/api/article/${id}`)
-        .then(res => res.json())
+      /* .then(res => res.json()) */
+      .then(res => {
+          if(res.status >= 400) {
+            throw new Error(res.statusText)
+          }
+          return res.json()
+        })
         .then(response => dispatch({
           type: LOAD_ARTICLE + SUCCESS,
           payload: {id, response}
         }))
-        .catch(error => dispatch({
+        .catch(error => {
+          dispatch({
           type: LOAD_ARTICLE + FAIL,
           payload: {id, error}
-        }))
+        })
+          dispatch(replace('/error'))
+      })
     }, 1000)
   }
 }
