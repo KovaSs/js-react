@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import propTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {Router, Route, NavLink, Switch, Redirect} from 'react-router-dom'
 import { ConnectedRouter} from 'react-router-redux'
 import Articles from './routes/Articles'
@@ -16,9 +16,26 @@ class App extends Component {
 
   }
 
-  state = {
-    seclection: null
+  // Описали какого типа данные мы собираемся помещеать в контекст
+  static childContextTypes = {
+    user: PropTypes.string
   }
+
+  // при каждом перестроении компонента будет вызываться
+  getChildContext() {
+    return {
+      user: this.state.username
+    }
+  }
+
+  state = {
+    username: ''
+  }
+
+
+/*   state = {
+    seclection: null
+  } */
 
   render() {
     return (
@@ -30,7 +47,7 @@ class App extends Component {
             <div><NavLink activeStyle = {{color:'red'}} to='/filters'>Filters</NavLink></div>
             <div><NavLink activeStyle = {{color:'red'}} to='/articles'>Articles</NavLink></div>
           </div>
-          <UserForm/>
+          <UserForm value={this.state.username} onChange={this.handleUserChange}/>
           <Switch>
             <Route path='/counter' component={Counter}/>
             <Route path='/filters' component={Filters}/>
@@ -43,6 +60,8 @@ class App extends Component {
       </ConnectedRouter>
     )
   }
+
+  handleUserChange = (username) => this.setState({username})
 }
 
 export default App

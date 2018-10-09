@@ -8,7 +8,7 @@ import api from '../middlewares/api';
 import logger from '../middlewares/logger';
 
 const devToolsCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-const enhancer = devToolsCompose(applyMiddleware(thunk, routerMiddleware(history), randomId, api, logger))
+const enhancer = devToolsCompose(applyMiddleware(thunk, routerMiddleware(history), randomId, api/* , logger */))
 
 const store = createStore(reducer, {}, enhancer)
 
